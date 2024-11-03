@@ -16,9 +16,20 @@ public class CityService {
     @Autowired
     private CityRepository repository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CityDTO> findAll() {
         List<City> list = repository.findAll(Sort.by("name"));
         return list.stream().map(x -> new CityDTO(x)).toList();
+    }
+
+    public CityDTO insert(CityDTO dto) {
+        City entity =  new City();
+        convertDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new CityDTO(entity);
+    }
+
+    private void convertDtoToEntity(CityDTO dto, City entity) {
+        entity.setName(dto.getName());
     }
 }
