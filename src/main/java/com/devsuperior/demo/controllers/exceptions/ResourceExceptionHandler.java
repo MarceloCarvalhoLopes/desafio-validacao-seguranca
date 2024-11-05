@@ -1,5 +1,7 @@
 package com.devsuperior.demo.controllers.exceptions;
 
+import com.devsuperior.demo.services.exceptions.DatabaseException;
+import com.devsuperior.demo.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,7 @@ import java.time.Instant;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
-	/*@ExceptionHandler(ResourceNotFoundException.class)
+	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		StandardError err = new StandardError();
@@ -35,7 +37,7 @@ public class ResourceExceptionHandler {
 		err.setMessage(e.getMessage());
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
-	}	*/
+	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ValidationError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
